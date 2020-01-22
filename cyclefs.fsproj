@@ -12,6 +12,7 @@
     <PackageReference Include="Silk.NET.Input.Desktop" Version="1.0.0-preview3" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Cycle.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>
 </Project>

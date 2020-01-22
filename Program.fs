@@ -81,29 +81,13 @@ let makeWindowDriver _window (input: IInputContext) =
   windowDriver
 
 
-let run mainFunc (drivers: Map<string, (IObservable<'T> -> 'b option)>) =
-  let fakeSinks = drivers |> Map.map (fun _ _ -> Subject.broadcast)
-
-  let sources =
-    drivers
-    |> Map.map (fun key driver -> driver (Map.find key fakeSinks))
-
-  let sinks  = mainFunc sources
-
-  sinks
-  |> Map.map (fun key sink ->
-    Observable.subscribeObserver (Map.find key fakeSinks) sink
-  )
-  |> ignore
-
-
 let drivers window input =
   Map.empty
   |> Map.add "window" (makeWindowDriver window input)
   |> Map.add "log" logDriver
 
 let onLoad window input =
-  run main (drivers window input)
+  Cycle.run main (drivers window input)
 
 let window = Window.Create(WindowOptions.Default)
 window.add_Load (fun () -> onLoad window (window.GetInput()))
