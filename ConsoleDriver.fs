@@ -1,4 +1,5 @@
-module LogDriver
+module ConsoleDriver
+
 open FSharp.Control.Reactive
 
 let make messages =
