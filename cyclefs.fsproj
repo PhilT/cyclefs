@@ -13,6 +13,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Observable.fs" />
+    <Compile Include="LogDriver.fs" />
     <Compile Include="MouseDriver.fs" />
     <Compile Include="Cycle.fs" />
     <Compile Include="Program.fs" />

@@ -9,13 +9,12 @@ open Silk.NET.Input.Common
 let main sources =
   let inputs =
     match Map.find "mouse" sources with
-    | Some windowSource -> windowSource |> Observable.map (fun _ -> 0)
-    | None -> failwith "windowSource connected to incorrect driver"
+    | Some source -> source |> Observable.map (fun _ -> 0)
+    | None -> failwith "mouse source connected to incorrect driver"
 
   Map.empty
   |> Map.add "mouse" (
-    inputs
-    |> Observable.scanInit 0 (fun prev _ -> prev + 1)
+    inputs |> Observable.scanInit 0 (fun prev _ -> prev + 1)
   )
   |> Map.add "log" (
     Observable.interval (System.TimeSpan.FromSeconds(1.0))
@@ -23,20 +22,13 @@ let main sources =
   )
 
 
-let logDriver messages =
-  messages
-  |> Observable.subscribe (fun message -> printfn "%A" message)
-  |> ignore
-
-  None
-
-
 let drivers input =
   Map.empty
   |> Map.add "mouse" (MouseDriver.make input)
-  |> Map.add "log" logDriver
+  |> Map.add "log" LogDriver.make
 
 
+// TODO: This should be hidden in Cycle.run
 let window = Window.Create(WindowOptions.Default)
 window.add_Load (fun () -> window.GetInput() |> drivers |> Cycle.run main)
 window.Run()
