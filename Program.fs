@@ -15,7 +15,8 @@ let main sources =
     |> Observable.scanInit 0 (fun prev _ -> prev + 1)
   )
 
-
+// This essentially allows you to turn on the drivers you want
+// as well as potentially adding your own
 let makeDrivers window input =
   Map.empty
   //|> Map.add "display" DisplayDriver.make
@@ -26,4 +27,13 @@ let makeDrivers window input =
 
 
 Cycle.run main makeDrivers
+
+
+
+// Inputs trigger intent updates
+// Updates trigger simulation progression (collision detection, momentum)
+// Renders happen in the engine
+
+// Should we tie inputs and updates together?
+
 

@@ -12,6 +12,10 @@ let run mainFunc makeDriversFunc =
 
   let onLoad () =
     let drivers = makeDriversFunc window (window.GetInput())
+
+    // In CycleJS they use xstream which has an imitate function
+    // that essentially does the same thing by re-emitting events
+    // in order to get around cyclic dependencies.
     let fakeSinks = drivers |> Map.map (fun _ _ -> Subject.broadcast)
 
     let sources =
