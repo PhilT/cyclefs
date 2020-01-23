@@ -41,7 +41,7 @@ the drivers but manage the creation of these in the library
 However, in Silk.NET, inputs and outputs are discrete, rendering is not triggered
 by inputs but by Silk.NET frame render event. Still, inputs do update the state
 as well as physics simulation so once these updates are propagated back into
-the driver when the render event is triggered it will render with the updated
+the driver when the render event is triggered it would render with the updated
 state. I already have this part working in a separate project so will look to
-re-use that here.
+reusing that here.
 
