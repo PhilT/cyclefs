@@ -27,7 +27,7 @@ let clicks (mouse: IMouse) =
 let make (input: IInputContext) =
   let inputs = clicks input.Mice.[0]
 
-  let windowDriver clicks =
+  let inputDriver clicks =
     clicks
     |> Observable.subscribe (fun clickCount -> printfn "Clicks: %A" clickCount)
     |> ignore
@@ -35,7 +35,7 @@ let make (input: IInputContext) =
     // source of the click events
     Some inputs
 
-  windowDriver
+  inputDriver
 
 
 
