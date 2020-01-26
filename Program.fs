@@ -1,13 +1,14 @@
 open FSharp.Control.Reactive
 
 let main sources =
+  // In OpenGL we don't link the sources with the outputs
   let inputs =
-    match Map.find "mouse" sources with
+    match Map.find "io" sources with
     | Some source -> source |> Observable.map (fun _ -> 0)
     | None -> failwith "mouse source connected to incorrect driver"
 
   Map.empty
-  |> Map.add "mouse" (
+  |> Map.add "io" (
     inputs |> Observable.scanInit 0 (fun prev _ -> prev + 1)
   )
   |> Map.add "console" (
@@ -20,7 +21,7 @@ let main sources =
 let makeDrivers window input =
   Map.empty
   //|> Map.add "display" DisplayDriver.make
-  |> Map.add "mouse" (MouseDriver.make input)
+  |> Map.add "io" (IoDriver.make window input)
   //|> Map.add "keyboard" (KeyboardDriver.make input)
   |> Map.add "console" ConsoleDriver.make
   //|> Map.add "logger" LogDriver.make
@@ -35,5 +36,4 @@ Cycle.run main makeDrivers
 // Renders happen in the engine
 
 // Should we tie inputs and updates together?
-
 

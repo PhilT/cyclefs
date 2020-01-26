@@ -38,10 +38,20 @@ of a drivers object that gets passed into `Cycle.run` we have a function so that
 we can pass in the Silk.NET window and input objects in order to create some of
 the drivers but manage the creation of these in the library
 
-However, in Silk.NET, inputs and outputs are discrete, rendering is not triggered
-by inputs but by Silk.NET frame render event. Still, inputs do update the state
-as well as physics simulation so once these updates are propagated back into
-the driver when the render event is triggered it would render with the updated
-state. I already have this part working in a separate project so will look to
-reusing that here.
+### Final thoughts
+
+The core premise of CycleJS is that you attach events to components and return
+these from your main function. Your main function receives events as inputs from
+those components. Hence the Cycle name. In the DOM, inputs are directly related
+to outputs.
+
+OpenGL doesn't really work this way. You don't have components. Inputs and
+outputs are global. You're free to design how you want. I don't think it's
+necessary to create this relationship in an engine.
+
+However, it has given me some insights into how I might further develop my game
+engine. Drivers are a nice analogy and really helps to separate responsibilities,
+isolate effects and keep the logic pure functions. It's also pushed me to try
+out Subjects such as Broadcast for converting the Action based events in Silk.NET
+to Observables and using Behaviour for managing state.
 
