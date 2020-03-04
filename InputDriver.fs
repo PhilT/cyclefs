@@ -1,4 +1,4 @@
-module IoDriver
+module InputDriver
 open FSharp.Control.Reactive
 
 open System
@@ -25,7 +25,9 @@ let clickStream (mouse: IMouse) =
   |> Observable.concatInner
 
 
-let make (window: IWindow) (input: IInputContext) =
+let make (window: IWindow) =
+  let input = window.GetInput()
+
   let driver clicks =
     let inputs = clickStream input.Mice.[0]
 

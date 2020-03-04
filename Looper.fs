@@ -10,8 +10,8 @@ open Silk.NET.Windowing.Common
 let run mainFunc makeDriversFunc =
   let window = Window.Create(WindowOptions.Default)
 
-  let onLoad () =
-    let drivers = makeDriversFunc window (window.GetInput())
+  window.add_Load (fun () ->
+    let drivers = makeDriversFunc window
 
     // In CycleJS they use xstream which has an imitate function
     // that essentially does the same thing by re-emitting events
@@ -29,6 +29,6 @@ let run mainFunc makeDriversFunc =
       Observable.subscribeObserver (Map.find key fakeSinks) sink
     )
     |> ignore
+  )
 
-  window.add_Load (fun () -> onLoad ())
   window.Run()

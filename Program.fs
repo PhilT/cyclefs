@@ -3,12 +3,12 @@ open FSharp.Control.Reactive
 let main sources =
   // In OpenGL we don't link the sources with the outputs
   let inputs =
-    match Map.find "io" sources with
+    match Map.find "input" sources with
     | Some source -> source |> Observable.map (fun _ -> 0)
     | None -> failwith "mouse source connected to incorrect driver"
 
   Map.empty
-  |> Map.add "io" (
+  |> Map.add "input" (
     inputs |> Observable.scanInit 0 (fun prev _ -> prev + 1)
   )
   |> Map.add "console" (
@@ -18,10 +18,9 @@ let main sources =
 
 // This essentially allows you to turn on the drivers you want
 // as well as potentially adding your own
-let makeDrivers window input =
+let makeDrivers window =
   Map.empty
-  //|> Map.add "display" DisplayDriver.make
-  |> Map.add "io" (IoDriver.make window input)
+  |> Map.add "input" (InputDriver.make window)
   //|> Map.add "keyboard" (KeyboardDriver.make input)
   |> Map.add "console" ConsoleDriver.make
   //|> Map.add "logger" LogDriver.make
