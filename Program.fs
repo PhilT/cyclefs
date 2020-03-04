@@ -27,7 +27,7 @@ let makeDrivers window input =
   //|> Map.add "logger" LogDriver.make
 
 
-Cycle.run main makeDrivers
+Looper.run main makeDrivers
 
 
 

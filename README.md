@@ -1,4 +1,4 @@
-## CycleFS
+## Looper
 
 I like the elegant way that [CycleJS](cyclejs.org) uses Reactive Programming to
 build web interfaces and I wanted to see if it would be a good fit for a game
@@ -15,11 +15,11 @@ handle mouse input.
 
     ./run
 
-### Mac/Linux usage
+### Mac/Linux usage (not tested)
 
     ./run.sh
 
-Tested on Windows 10 .NET Core 3.0.
+Tested on Windows 10 .NET Core 3.1.
 
 This version starts counting up in 1 second intervals in the shell. If you click
 with the left mouse button you'll also see a click count.

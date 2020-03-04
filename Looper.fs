@@ -1,4 +1,4 @@
-module Cycle
+module Looper
 
 open FSharp.Control.Reactive
 
